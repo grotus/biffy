@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
 
   devise_for :users
-	root 'helloworld#index'
+	root 'home#index'
+
+  namespace :api, defaults: {format: :json} do
+    resources :helloworld, only: [:index] do
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
