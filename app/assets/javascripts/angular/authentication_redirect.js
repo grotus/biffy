@@ -6,9 +6,9 @@
  * This assumes that the access attempt is from Angular trying to get a resource.
  */
 
-angular.module('authentication_redirect', [])
+AuthRedirect = angular.module('authentication_redirect', []);
 
-.config(['$httpProvider', function($httpProvider){
+AuthRedirect.config(['$httpProvider', function($httpProvider){
   // Intercepts every http request.  If the response is success, pass it through.  If the response is an
   // error, and that error is 401 (unauthorised) then the user isn't logged in, redirect to the login page 
   var interceptor = function($q, $location, $rootScope) {
