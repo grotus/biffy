@@ -1,0 +1,14 @@
+<div>
+  <label>Bodyweight:</label>
+  <input type="number" ng-model="bio.weight" placeholder="weight in kg" step="0.01">
+  <label>Date:</label>
+  <input type="date" ng-model="bio.entry_date" placeholder="yyyy-MM-dd" required>
+  <button ng-click="save()">Save</button>
+
+  <h2>{{bio.weight | number: 2}} kg</h1>
+  <h2>{{bio.entry_date | date:'yyyy-MM-dd'}}</h2>
+
+  <div ng-repeat="reading in weight_readings">
+	  <p>{{reading.weight}} kg, {{reading.entry_date | date:'yyyy-MM-dd'}}</p>
+  </div>
+</div>

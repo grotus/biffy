@@ -13,6 +13,10 @@ angular.module('biffy', ['templates', 'ngRoute', 'biffyServices', 'authenticatio
 			controller: 'LoginCtrl',
 			templateUrl: 'Login.html'
 		})
+		.when('/bio', {
+			controller: 'BioCtrl',
+			templateUrl: 'Bio.html'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
