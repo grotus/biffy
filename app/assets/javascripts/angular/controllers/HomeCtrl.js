@@ -1,3 +1,3 @@
-angular.module('biffy').controller('HomeCtrl', ['$scope', 'HelloWorld', function($scope, HelloWorld) {
-	$scope.helloworld = HelloWorld.get();
+angular.module('biffy').controller('HomeCtrl', ['$scope', 'API', function($scope, API) {
+	$scope.helloworld = API.get();
 }]);
