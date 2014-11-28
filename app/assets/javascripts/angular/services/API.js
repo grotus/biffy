@@ -5,11 +5,4 @@ angular.module('biffyServices').factory('HelloWorld', ['$resource',
     });
 }]);
 
-angular.module('biffyServices').factory('Biometrics', ['$resource',
- function($resource){
-	return $resource('api/biometrics', {}, {
-      get: {method:'GET',  isArray:true},
-      save: {method:'POST'}
-    });
-}]);
 
