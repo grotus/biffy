@@ -4,3 +4,4 @@ angular.module('biffyServices').factory('HelloWorld', ['$resource',
       // query: {method:'GET', params:{phoneId:'phones'}, isArray:true}
     });
 }])
+
