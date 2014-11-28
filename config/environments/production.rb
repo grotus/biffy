@@ -20,7 +20,7 @@ Rails.application.configure do
   # config.action_dispatch.rack_cache = true
 
   # Disable Rails's static asset server (Apache or nginx will already do this).
-  config.serve_static_assets = false
+  #config.serve_static_assets = false # UNCOMMENT FOR NORMAL MINIFICATION
 
   # Compress JavaScripts and CSS.
   #config.assets.js_compressor = :uglifier # UNCOMMENT FOR NORMAL MINIFICATION
@@ -29,10 +29,10 @@ Rails.application.configure do
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
-  config.assets.compile = false
+  #config.assets.compile = false # UNCOMMENT FOR NORMAL MINIFICATION
 
   # Generate digests for assets URLs.
-  config.assets.digest = true
+  #config.assets.digest = true # UNCOMMENT FOR NORMAL MINIFICATION
 
   # Version of your assets, change this if you want to expire all your assets.
   config.assets.version = '1.0'
