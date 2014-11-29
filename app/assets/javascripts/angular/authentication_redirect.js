@@ -22,5 +22,5 @@ angular.module('authentication_redirect', [])
       }
     };
   };
-  $httpProvider.interceptors.push(interceptor);
+  $httpProvider.interceptors.push(['$q', '$location', '$rootScope', interceptor]);
 }]);
