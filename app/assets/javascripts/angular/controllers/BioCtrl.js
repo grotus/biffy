@@ -4,7 +4,9 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		entry_date: new Date()
 	};
 
-	$scope.weight_readings = Biometrics.get();
+	$scope.weight_readings = Biometrics.get(function (readings) {
+		$scope.bio.weight = readings[0].weight;
+	});
 
 	$scope.save = function () {
 		Biometrics.save($scope.bio);
