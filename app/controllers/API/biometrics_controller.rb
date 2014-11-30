@@ -10,7 +10,6 @@ module Api
 		def create
 			biometric = params[:biometric]
 			bodyweight = {weight: biometric[:weight], entry_date: biometric[:entry_date]}
-			puts "CREATE RECEIVED! #{biometric}, #{bodyweight} !!"
 
 			weight_reading = current_user.weight_readings.build(bodyweight)
 

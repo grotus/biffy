@@ -26,7 +26,7 @@
         <tbody>
           <tr ng-repeat="reading in weight_readings">
             <th>{{reading.entry_date | date:'yyyy-MM-dd'}}</th>
-            <th>{{reading.weight}}</th>
+            <th>{{reading.weight | number: 2}}</th>
           </tr>
         </tbody>
       </table>
