@@ -10,14 +10,18 @@ module Api
 		def create
 			biometric = params[:biometric]
 			bodyweight = {weight: biometric[:weight], entry_date: biometric[:entry_date]}
+			bodyfat = {percent: biometric[:percent], entry_date: biometric[:entry_date]}
 
-			weight_reading = current_user.weight_readings.build(bodyweight)
-
-			if weight_reading.save
-				render json: {message: 'success'}
-			else
-				render json: {message: 'error'}
+			if bodyweight[:weight] > 0
+				weight_reading = current_user.weight_readings.build(bodyweight)
+				weight_reading.save
 			end
+			if bodyfat[:percent] > 0
+				bf_reading = current_user.fat_readings.build(bodyfat)
+				bf_reading.save
+			end
+
+			render json: {message: 'success'}
 		end
 	end
 end
