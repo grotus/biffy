@@ -1,16 +1,26 @@
 angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics', function($scope, $filter, Biometrics) {
 	$scope.bio = {
 		weight: 0.0,
+		percent: 0.0,
 		entry_date: new Date()
 	};
 
-	$scope.weight_readings = Biometrics.get(function (readings) { // skip the callback, we'll want this to default to 0 in a real scenario...
-		$scope.bio.weight = readings[0].weight;
-	});
+	$scope.readings = Biometrics.get();
 
 	$scope.save = function () {
-		Biometrics.save($scope.bio, function () {
-			$scope.weight_readings = Biometrics.get();
+		var save_data = {
+			weight: $scope.bio.weight,
+			percent: $scope.bio.percent / 100
+		};
+		if (angular.isDate($scope.bio.entry_date)) {
+			save_data.entry_date = $scope.bio.entry_date.yyyymmdd();
+		}
+		else {
+			save_data.entry_date = $scope.bio.entry_date; // for safety, shouldn't really happen anymore
+		}
+
+		Biometrics.save(save_data, function () {
+			$scope.readings = Biometrics.get();
 		});
 		
 	};

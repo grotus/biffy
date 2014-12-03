@@ -11,14 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141130225422) do
+ActiveRecord::Schema.define(version: 20141203220058) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "fat_readings", force: true do |t|
     t.float    "percent"
-    t.datetime "entry_date"
+    t.string   "entry_date"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(version: 20141130225422) do
 
   create_table "weight_readings", force: true do |t|
     t.float    "weight"
-    t.datetime "entry_date"
+    t.string   "entry_date"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
