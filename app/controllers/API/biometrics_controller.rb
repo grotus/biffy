@@ -3,10 +3,8 @@ module Api
 		before_filter :authenticate_user!
 
 		def index
-			bw_data = current_user.weight_readings.select("id, weight, entry_date").order("entry_date DESC")
-			bf_data = current_user.fat_readings.select("id, percent, entry_date").order("entry_date DESC")
-			user_data = { bw: bw_data, bf: bf_data }
-			render json: bw_data.as_json
+			bio_data = current_user.collated_readings.values
+			render json: bio_data.as_json
 		end
 
 		def create

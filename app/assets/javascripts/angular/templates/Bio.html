@@ -30,7 +30,7 @@
           <tr ng-repeat="reading in readings">
             <th>{{reading.entry_date}}</th>
             <th>{{reading.weight | number: 2}}</th>
-            <th>{{reading.percent | number: 2}}</th>
+            <th>{{reading.percent*100 | number: 1}}</th>
           </tr>
         </tbody>
       </table>
