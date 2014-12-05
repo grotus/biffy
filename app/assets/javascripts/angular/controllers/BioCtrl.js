@@ -5,7 +5,9 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		entry_date: new Date()
 	};
 
-	$scope.readings = Biometrics.get();
+	$scope.readings = Biometrics.get(function () {
+		$scope.date_changed();
+	});
 
 	$scope.save = function () {
 		var save_data = {
@@ -22,7 +24,22 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		Biometrics.save(save_data, function () {
 			$scope.readings = Biometrics.get();
 		});
-		
+		$scope.bio.weight = 0.0;
+		$scope.bio.percent = 0.0;
 	};
+
+	$scope.date_changed = function (argument) {
+		// this could be optimized by sending out a hash with the date as key
+		$scope.bio.weight = 0.0;
+		$scope.bio.percent = 0.0;
+		for (var i = $scope.readings.length - 1; i >= 0; i--) {
+			var reading = $scope.readings[i];
+			if (reading.entry_date === $scope.bio.entry_date.yyyymmdd()) {
+				$scope.bio.weight = reading.weight || 0.0;
+				$scope.bio.percent = reading.percent || 0.0;
+				break;
+			};
+		};
+	}
 
 }]);
