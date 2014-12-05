@@ -26,6 +26,9 @@ class User < ActiveRecord::Base
   def collated_readings
   	bw = weight_readings.by_date_map
   	bf = fat_readings.by_date_map
+  	if bw.nil? || bf.nil?
+  		return bw.nil? ? bw : bf
+  	end
   	bw.merge(bf) { |key, value_a, value_b| value_a.merge(value_b) }
   end
 

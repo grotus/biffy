@@ -3,7 +3,7 @@ module Api
 		before_filter :authenticate_user!
 
 		def index
-			bio_data = current_user.collated_readings.values
+			bio_data = current_user.collated_readings.try :values
 			render json: bio_data.as_json
 		end
 
