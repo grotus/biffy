@@ -6,12 +6,12 @@ class User < ActiveRecord::Base
 
   has_many :weight_readings, :dependent => :destroy do 
   	def by_date
-  		select("id, weight, entry_date").order("entry_date DESC").map { |x| {entry_date: x.entry_date.to_date, bw_id: x.id, weight: x.weight} }
+  		select("id, weight, entry_date").order("entry_date DESC").map { |x| {entry_date: x.entry_date, bw_id: x.id, weight: x.weight} }
   	end
   end
   has_many :fat_readings, :dependent => :destroy do 
   	def by_date
-  		select("id, percent, entry_date").order("entry_date DESC").map { |x| {entry_date: x.entry_date.to_date, bf_id: x.id, percent: x.percent} }
+  		select("id, percent, entry_date").order("entry_date DESC").map { |x| {entry_date: x.entry_date, bf_id: x.id, percent: x.percent} }
   	end
   end
 
