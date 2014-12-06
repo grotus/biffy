@@ -20,9 +20,9 @@ class User < ActiveRecord::Base
   		select("id, percent, entry_date").order("entry_date DESC").map { |x| {x.entry_date => {entry_date: x.entry_date, bf_id: x.id, percent: x.percent}} }.reduce :merge
   	end
   end
+  has_many :notes, :dependent => :destroy
 
-  # What I would like to get out of this...
-  # [..., { bw: {entry_date, bw_id, weight}, bf: nil }, ...]
+  
   def collated_readings
   	bw = weight_readings.by_date_map
   	bf = fat_readings.by_date_map

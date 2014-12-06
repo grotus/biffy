@@ -3,7 +3,7 @@ module Api
 		before_filter :authenticate_user!
 
 		def index
-			bio_data = current_user.collated_readings.try :values
+			bio_data = current_user.collated_readings.try(:values).sort_by { |x| x[:entry_date] }.reverse!
 			render json: bio_data.as_json
 		end
 
