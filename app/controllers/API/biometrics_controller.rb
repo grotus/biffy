@@ -4,6 +4,7 @@ module Api
 
 		def index
 			bio_data = current_user.collated_readings.try(:values).sort_by { |x| x[:entry_date] }.reverse!
+			puts "RETURNING DATA: #{bio_data.as_json}"
 			render json: bio_data.as_json
 		end
 
@@ -14,6 +15,7 @@ module Api
 
 			entry_bw = biometric[:weight]
 			entry_bf_percent = biometric[:percent]
+			entry_note = biometric[:note]
 
 			# TODO: Move this stuff into a helper
 			if entry_bw > 0
@@ -35,6 +37,17 @@ module Api
 				else
 					existing_bf_percent.percent = entry_bf_percent
 					existing_bf_percent.save
+				end
+			end
+
+			if !entry_note.blank?
+				existing_note = current_user.notes.on(entrydate).first
+				if existing_note.nil?
+					new_note = current_user.notes.build({body: entry_note, entry_date: entrydate})
+					new_note.save
+				else
+					existing_note.body = entry_note
+					existing_note.save
 				end
 			end
 

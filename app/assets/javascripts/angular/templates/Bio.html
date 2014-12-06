@@ -1,28 +1,30 @@
 <div class="container">
   <div class="row">
+    <div class="col-xs-12 col-sm-4 col-md-3">
+      <label>Date:</label>
+      <input class="form-control" type="date" ng-model="bio.entry_date" ng-change="date_changed()" placeholder="yyyy-MM-dd" required>
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-2">
+      <label>Weight (kg):</label>
+      <input class="form-control" type="number" ng-model="bio.weight" placeholder="weight in kg" step="0.25">
+    </div>
+    <div class="col-xs-12 col-sm-4 col-md-2">
+      <label>Fat (%):</label>
+      <input class="form-control" type="number" ng-model="bio.percent" placeholder="bodyfat in percent" step="0.1">
+    </div>
+    <div class="col-xs-12 col-md-5">
+      <label>Note:</label>
+      <textarea class="form-control" rows="2" ng-model="bio.note"></textarea>
+    </div>
     <div class="col-xs-12">
-      <form class="form-inline" role="form">
-        <div class="form-group">
-          <label>Date:</label>
-          <input type="date" ng-model="bio.entry_date" ng-change="date_changed()" placeholder="yyyy-MM-dd" required>
-        </div>
-        <div class="form-group">
-          <label>Weight (kg):</label>
-          <input class="form-control" type="number" ng-model="bio.weight" placeholder="weight in kg" step="0.25">
-        </div>
-        <div class="form-group">
-        <label>Fat (%):</label>
-          <input class="form-control" type="number" ng-model="bio.percent" placeholder="bodyfat in percent" step="0.1">
-          <button ng-click="save()" class="btn btn-primary">Save</button>
-        </div>
-      </form>
+      <button ng-click="save()" class="btn btn-primary">Save</button>
     </div>
   </div>
-  <div class="row">
+<!--   <div class="row">
     <div class="col-xs-12">
       <span><b>Enter {{bio.weight | number: 2}} kg, {{bio.percent | number: 1}}% on {{bio.entry_date | date:'yyyy-MM-dd'}}</b></span>
     </div>
-  </div>
+  </div> -->
   <hr>
   <div class="row">
     <div class="col-xs-12">
@@ -39,16 +41,16 @@
         </thead>
         <tbody>
           <tr ng-repeat="reading in readings">
-            <th>{{reading.entry_date}}</th>
-            <th>{{reading.weight | number: 2}}</th>
-            <th>{{reading.percent*100 | number: 1}}</th>
-            <th ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</th>
-            <th ng-if="reading.weight && reading.percent">{{reading.weight*reading.percent | number:2}}</th>
-            <th ng-if="reading.weight===undefined || reading.percent===undefined"></th>
-            <th ng-if="reading.weight===undefined || reading.percent===undefined"></th>
-            <th>
-              <textarea class="form-control" rows="3"></textarea>
-            </th>
+            <td>{{reading.entry_date}}</td>
+            <td>{{reading.weight | number: 2}}</td>
+            <td>{{reading.percent*100 | number: 1}}</td>
+            <td ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</td>
+            <td ng-if="reading.weight && reading.percent">{{reading.weight*reading.percent | number:2}}</td>
+            <td ng-if="reading.weight===undefined || reading.percent===undefined"></td>
+            <td ng-if="reading.weight===undefined || reading.percent===undefined"></th>
+            <td>
+              <div ng-if="reading.note">{{reading.note}}</div>
+            </td>
           </tr>
         </tbody>
       </table>
