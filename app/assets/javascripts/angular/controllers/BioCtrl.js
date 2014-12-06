@@ -36,7 +36,7 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 			var reading = $scope.readings[i];
 			if (reading.entry_date === $scope.bio.entry_date.yyyymmdd()) {
 				$scope.bio.weight = reading.weight || 0.0;
-				$scope.bio.percent = reading.percent*100 || 0.0;
+				$scope.bio.percent = Math.round((reading.percent*100 + 0.00001)*10)/10 || 0.0;
 				break;
 			};
 		};

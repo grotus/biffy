@@ -24,6 +24,8 @@
             <th>Date</th>
             <th>Weight (kg)</th>
             <th>Fat (%)</th>
+            <th>LBM (kg)</th>
+            <th>FBM (kg)</th>
           </tr>
         </thead>
         <tbody>
@@ -31,6 +33,10 @@
             <th>{{reading.entry_date}}</th>
             <th>{{reading.weight | number: 2}}</th>
             <th>{{reading.percent*100 | number: 1}}</th>
+            <th ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</th>
+            <th ng-if="reading.weight && reading.percent">{{reading.weight*reading.percent | number:2}}</th>
+            <th ng-if="reading.weight===undefined || reading.percent===undefined"></th>
+            <th ng-if="reading.weight===undefined || reading.percent===undefined"></th>
           </tr>
         </tbody>
       </table>
