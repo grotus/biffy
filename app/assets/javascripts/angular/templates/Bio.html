@@ -2,9 +2,9 @@
   <div class="row">
     <div class="col-xs-12">
       <label>Weight (kg):</label>
-      <input type="number" ng-model="bio.weight" placeholder="weight in kg" step="0.01">
+      <input type="number" ng-model="bio.weight" placeholder="weight in kg" step="0.25">
       <label>Fat (%):</label>
-      <input type="number" ng-model="bio.percent" placeholder="bodyfat in percent" step="0.01">
+      <input type="number" ng-model="bio.percent" placeholder="bodyfat in percent" step="0.1">
       <label>Date:</label>
       <input type="date" ng-model="bio.entry_date" ng-change="date_changed()" placeholder="yyyy-MM-dd" required>
       <button ng-click="save()" class="btn btn-primary">Save</button>
@@ -12,7 +12,7 @@
   </div>
   <div class="row">
     <div class="col-xs-12">
-      <span><b>Enter {{bio.weight | number: 2}} kg on {{bio.entry_date | date:'yyyy-MM-dd'}}</b></span>
+      <span><b>Enter {{bio.weight | number: 2}} kg, {{bio.percent | number: 1}}% on {{bio.entry_date | date:'yyyy-MM-dd'}}</b></span>
     </div>
   </div>
   <hr>
