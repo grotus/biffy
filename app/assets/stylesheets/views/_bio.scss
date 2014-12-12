@@ -1,0 +1,21 @@
+.bio-view {
+	.bio-table-row {
+		.note {
+			max-width: 300px;
+			
+			.body {
+				width: 100%;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: pre;
+			}
+		}
+
+		.delete-entry-row {
+			color: gray;
+			&:hover {
+				color: black;
+			}
+		}
+	}
+}

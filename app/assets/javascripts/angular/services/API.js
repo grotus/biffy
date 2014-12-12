@@ -9,6 +9,7 @@ angular.module('biffyServices').factory('Biometrics', ['$resource',
  function($resource){
 	return $resource('api/biometrics', {}, {
       get: {method:'GET', isArray:true},
-      save: {method:'POST'}
+      save: {method:'POST'},
+      delete_entry: {url:'api/biometrics/:id', method:'DELETE'}
     });
 }]);

@@ -15,8 +15,21 @@
  *= require_self
  */
 
+
+// Modules and Variables
+@import "partials/base";
+
+// Partials
+
+// Views
+@import "views/bio";
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
 @import "font-awesome-sprockets";
 @import "font-awesome";
+
+
+
+

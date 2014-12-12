@@ -57,5 +57,14 @@ module Api
 			puts "INVALID ENTRY DATE POSTED: #{entrydate}"
 			render json: {message: 'invalid_entry_date'} # return an error code too?
 		end
+
+		# Delete all entries for a particular date
+		def destroy
+			delete_date = params[:id]
+			current_user.weight_readings.on(delete_date).first.try(:destroy)
+			current_user.fat_readings.on(delete_date).first.try(:destroy)
+			current_user.notes.on(delete_date).first.try(:destroy)
+			render json: {message: 'success'}
+		end
 	end
 end

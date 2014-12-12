@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   namespace :api, defaults: {format: :json} do
     resources :helloworld, only: [:index] do
     end
-    resources :biometrics, only: [:index, :create] do
+    resources :biometrics, only: [:index, :create, :destroy] do
     end
   end
 

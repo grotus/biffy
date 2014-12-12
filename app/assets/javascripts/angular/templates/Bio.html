@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container bio-view">
   <div class="row">
     <div class="col-xs-12 col-sm-4 col-md-3">
       <label>Date:</label>
@@ -31,11 +31,12 @@
       <table class="table table-striped table-hover table-responsive">
         <thead>
           <tr>
-            <th>Date <span id="my-icon" class="fa fa-sort-desc" /></th>
+            <th>Date <span class="fa fa-sort-desc" /></th>
             <th>Weight (kg)</th>
             <th>Fat (%)</th>
             <th>LBM (kg)</th>
             <th>FBM (kg)</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -49,8 +50,9 @@
             <td ng-if="reading.weight===undefined || reading.percent===undefined"></td>
             <td ng-if="reading.weight===undefined || reading.percent===undefined"></th>
             <td class="note">
-              <div ng-if="reading.note">{{reading.note}}</div>
+              <div class="body" ng-if="reading.note">{{reading.note}}</div>
             </td>
+            <td><span ng-click="delete_row(reading.entry_date)" class="fa fa-close delete-entry-row" /></td>
           </tr>
         </tbody>
       </table>

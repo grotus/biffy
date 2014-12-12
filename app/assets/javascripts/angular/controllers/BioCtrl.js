@@ -45,6 +45,14 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 				break;
 			};
 		};
+	};
+
+	$scope.delete_row = function (row_date) {
+		var confirmed = confirm("Delete entries for " + row_date + "?");
+		if (confirmed === false) return;
+		Biometrics.delete_entry({id: row_date}, function () {
+			$scope.readings = Biometrics.get(function () {$scope.date_changed();});
+		});
 	}
 
 }]);
