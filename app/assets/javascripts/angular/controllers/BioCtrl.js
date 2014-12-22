@@ -5,6 +5,7 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		note: "",
 		entry_date: new Date()
 	};
+	$scope.editabletest = 0;
 
 	$scope.readings = Biometrics.get(function () {
 		$scope.date_changed();
@@ -47,8 +48,15 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		};
 	};
 
+	$scope.edit_row = function (entry) {
+		$scope.bio.entry_date = new Date(entry.entry_date); // makes assumptions about date formatting. Potential issue with future localization
+		$scope.bio.weight = entry.weight;
+		$scope.bio.percent = Math.round((entry.percent*100 + 0.00001)*10)/10 || 0.0;
+		$scope.bio.note = entry.note;
+	}
+
 	$scope.delete_row = function (row_date) {
-		var confirmed = confirm("Delete entries for " + row_date + "?");
+		var confirmed = confirm("Delete data for " + row_date + "?");
 		if (confirmed === false) return;
 		Biometrics.delete_entry({id: row_date}, function () {
 			$scope.readings = Biometrics.get(function () {$scope.date_changed();});

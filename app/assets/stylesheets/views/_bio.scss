@@ -1,4 +1,24 @@
+@import "modules/mixins";
 .bio-view {
+	.input-panel {
+		position:fixed;
+		width: 100%;
+		background: white; // replace with variable
+		z-index: 100;
+		bottom: 0;
+		box-shadow: 0 0 4px #888888;
+	}
+	.table-data-container {
+		@include breakpoint(xs, true) {
+			margin-bottom: 290px;
+		}
+		@include breakpoint(sm, true) {
+			margin-bottom: 172px;
+		}
+		@include breakpoint(md) {
+			margin-bottom: 113px;
+		}
+	}
 	.bio-table-row {
 		.note {
 			max-width: 300px;

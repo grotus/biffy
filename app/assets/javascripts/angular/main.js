@@ -11,7 +11,7 @@ Date.prototype.yyyymmdd = function() { // move to helpers.js or something
 
 angular.module('biffyServices', ['ngResource']);
 
-angular.module('biffy', ['templates', 'ngRoute', 'biffyServices', 'authentication_redirect'])
+angular.module('biffy', ['templates', 'ngRoute', 'biffyServices', 'authentication_redirect', 'editableDirective'])
 .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 	$routeProvider
 		.when('/', {

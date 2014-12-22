@@ -18,36 +18,48 @@ module Api
 			entry_note = biometric[:note]
 
 			# TODO: Move this stuff into a helper
-			if entry_bw > 0
-				existing_bw = current_user.weight_readings.on(entrydate).first
-				if existing_bw.nil?
+			existing_bw = current_user.weight_readings.on(entrydate).first
+			if existing_bw.nil?
+				if entry_bw > 0
 					new_weight_reading = current_user.weight_readings.build({weight: entry_bw, entry_date: entrydate})
 					new_weight_reading.save
-				else
+				end
+			else
+				if !entry_bw.nil? && entry_bw > 0
 					existing_bw.weight = entry_bw
 					existing_bw.save
+				else
+					existing_bw.destroy
 				end
 			end
 
-			if entry_bf_percent > 0
-				existing_bf_percent = current_user.fat_readings.on(entrydate).first
-				if existing_bf_percent.nil?
+			existing_bf_percent = current_user.fat_readings.on(entrydate).first
+			if existing_bf_percent.nil?
+				if entry_bf_percent > 0
 					new_bf_reading = current_user.fat_readings.build({percent: entry_bf_percent, entry_date: entrydate})
 					new_bf_reading.save
-				else
+				end
+			else
+				if !entry_bf_percent.nil? && entry_bf_percent > 0
 					existing_bf_percent.percent = entry_bf_percent
 					existing_bf_percent.save
+				else
+					existing_bf_percent.destroy
 				end
 			end
 
-			if !entry_note.blank?
-				existing_note = current_user.notes.on(entrydate).first
-				if existing_note.nil?
+			existing_note = current_user.notes.on(entrydate).first
+			if existing_note.nil?
+				if !entry_note.blank?
 					new_note = current_user.notes.build({body: entry_note, entry_date: entrydate})
 					new_note.save
-				else
+				end
+			else
+				if !entry_note.blank?
 					existing_note.body = entry_note
 					existing_note.save
+				else
+					existing_note.destroy
 				end
 			end
 

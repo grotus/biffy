@@ -1,0 +1,20 @@
+@import "variables";
+
+@function lines($nr-of-lines){
+  @return $grid-line-height * $nr-of-lines
+}
+
+@function strip-units($number) {
+  @return $number / ($number * 0 + 1);
+}
+
+@function px-to-lines($pixels) {
+  @return $pixels / strip-units($grid-line-height);
+}
+
+@function ridiculous-column-width($margin, $extra, $sections: 4) {
+  $x: strip-units($margin);
+  $y: strip-units($extra);
+  $spaces: $sections - 1;
+  @return percentage((100 - $spaces * $x - $y)/($sections * 100));
+}

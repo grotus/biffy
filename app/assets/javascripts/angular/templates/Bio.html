@@ -1,61 +1,63 @@
-<div class="container bio-view">
-  <div class="row">
-    <div class="col-xs-12 col-sm-4 col-md-3">
-      <label>Date:</label>
-      <input class="form-control" type="date" ng-model="bio.entry_date" ng-change="date_changed()" placeholder="yyyy-MM-dd" required>
-    </div>
-    <div class="col-xs-12 col-sm-4 col-md-2">
-      <label>Weight (kg):</label>
-      <input class="form-control" type="number" ng-model="bio.weight" placeholder="weight in kg" step="0.25">
-    </div>
-    <div class="col-xs-12 col-sm-4 col-md-2">
-      <label>Fat (%):</label>
-      <input class="form-control" type="number" ng-model="bio.percent" placeholder="bodyfat in percent" step="0.1">
-    </div>
-    <div class="col-xs-12 col-md-5">
-      <label>Note:</label>
-      <textarea class="form-control" rows="2" ng-model="bio.note"></textarea>
-    </div>
-    <div class="col-xs-12">
-      <button ng-click="save()" class="btn btn-primary">Save</button>
+<div class="bio-view">
+<div class="input-panel">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3">
+          <label>Date:</label>
+          <input class="form-control" type="date" ng-model="bio.entry_date" ng-change="date_changed()" placeholder="yyyy-MM-dd" required>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-2">
+          <label>Weight (kg):</label>
+          <input class="form-control" type="number" ng-model="bio.weight" placeholder="weight in kg" step="0.25">
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-2">
+          <label>Fat (%):</label>
+          <input class="form-control" type="number" ng-model="bio.percent" placeholder="bodyfat in percent" step="0.1">
+        </div>
+        <div class="col-xs-12 col-md-5">
+          <label>Note:</label>
+          <textarea class="form-control" rows="2" ng-model="bio.note"></textarea>
+        </div>
+        <div class="col-xs-12">
+          <button ng-click="save()" class="btn btn-primary">Save</button>
+        </div>
+      </div>
     </div>
   </div>
-<!--   <div class="row">
-    <div class="col-xs-12">
-      <span><b>Enter {{bio.weight | number: 2}} kg, {{bio.percent | number: 1}}% on {{bio.entry_date | date:'yyyy-MM-dd'}}</b></span>
-    </div>
-  </div> -->
-  <hr>
-  <div class="row">
-    <div class="col-xs-12">
-      <table class="table table-striped table-hover table-responsive">
-        <thead>
-          <tr>
-            <th>Date <span class="fa fa-sort-desc" /></th>
-            <th>Weight (kg)</th>
-            <th>Fat (%)</th>
-            <th>LBM (kg)</th>
-            <th>FBM (kg)</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="reading in readings" class="bio-table-row">
-            <td>{{reading.entry_date}}</td>
-            <td>{{reading.weight | number: 2}}</td>
-            <td>{{reading.percent*100 | number: 1}}</td>
-            <td ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</td>
-            <td ng-if="reading.weight && reading.percent">{{reading.weight*reading.percent | number:2}}</td>
-            <td ng-if="reading.weight===undefined || reading.percent===undefined"></td>
-            <td ng-if="reading.weight===undefined || reading.percent===undefined"></th>
-            <td class="note">
-              <div class="body" ng-if="reading.note">{{reading.note}}</div>
-            </td>
-            <td><span ng-click="delete_row(reading.entry_date)" class="fa fa-close delete-entry-row" /></td>
-          </tr>
-        </tbody>
-      </table>
+
+  <div class="container table-data-container">
+    <div class="row">
+      <div class="col-xs-12">
+        <table class="table table-striped table-hover table-responsive">
+          <thead>
+            <tr>
+              <th>Date <span class="fa fa-sort-desc" /></th>
+              <th>Weight (kg)</th>
+              <th>Fat (%)</th>
+              <th>LBM (kg)</th>
+              <th>FBM (kg)</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="edit_row(reading)">
+              <td>{{reading.entry_date}}</td>
+              <td>{{reading.weight | number: 2}}</td>
+              <td>{{reading.percent*100 | number: 1}}</td>
+              <td ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</td>
+              <td ng-if="reading.weight && reading.percent">{{reading.weight*reading.percent | number:2}}</td>
+              <td ng-if="reading.weight===undefined || reading.percent===undefined"></td>
+              <td ng-if="reading.weight===undefined || reading.percent===undefined"></th>
+              <td class="note">
+                <div class="body" ng-if="reading.note">{{reading.note}}</div>
+              </td>
+              <td><span ng-click="delete_row(reading.entry_date)" class="fa fa-close delete-entry-row" /></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
+
