@@ -26,6 +26,10 @@ angular.module('biffy', ['templates', 'ngRoute', 'biffyServices', 'authenticatio
 			controller: 'BioCtrl',
 			templateUrl: 'Bio.html'
 		})
+		.when('/bfcalc', {
+			controller: 'BfCalc',
+			templateUrl: 'BfCalc.html'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});
