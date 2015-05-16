@@ -1,6 +1,14 @@
 <div class="bio-view">
 <div class="input-panel">
     <div class="container">
+      <div ng-if="range_select.count > 1" class="row period-data">
+        <div class="col-xs-12">
+          <div>Period: {{range_select.oldest_date()}} to {{range_select.newest_date()}}</div>
+          <div>Avg. weight: <b>{{range_select.data.period_avg_wt | number: 2}} kg</b>. Weight delta: <b>{{range_select.data.wt_delta | number: 2}} kg</b>.</div>
+          <hr>
+        </div>
+      </div>
+      
       <div class="row">
         <div class="col-xs-12 col-sm-4 col-md-3">
           <label>Date:</label>
@@ -42,7 +50,7 @@
           </thead>
           <tbody>
             <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="select_row(reading, $index)">
-              <td><span ng-if="range_select.is_selected($index)">*</span> {{reading.entry_date}}</td>
+              <td><span ng-if="range_select.count > 1 &&range_select.is_selected($index)">*</span> {{reading.entry_date}}</td>
               <td>{{reading.weight | number: 2}}</td>
               <td>{{reading.percent*100 | number: 1}}</td>
               <td ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</td>

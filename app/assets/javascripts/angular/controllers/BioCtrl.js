@@ -15,6 +15,7 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		index_a: null,
 		index_b: null,
 		next_select: 0,
+		count: 0,
 		is_selected: function (index) {
 			if (this.index_a === null && this.index_b === null) return false;
 			if (this.index_a === null) return index === this.index_b; 
@@ -22,6 +23,12 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 
 			return index >= Math.min(this.index_a, this.index_b)
 				 && index <= Math.max(this.index_a, this.index_b);
+		},
+		oldest_date: function () {
+			return $scope.readings[Math.max(this.index_a, this.index_b)].entry_date;
+		},
+		newest_date: function () {
+			return $scope.readings[Math.min(this.index_a, this.index_b)].entry_date;
 		}
 	};
 
@@ -78,7 +85,7 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 
 		var newest = Math.min(ranger.index_a, ranger.index_b);
 		var oldest = Math.max(ranger.index_a, ranger.index_b);
-		var entryCount = oldest - newest + 1;
+		ranger.count = oldest - newest + 1;
 
 		var data = {
 			period_avg_wt: null,
@@ -90,7 +97,7 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 			data.period_avg_wt += reading.weight;
 		};
 
-		data.period_avg_wt = data.period_avg_wt / entryCount;
+		data.period_avg_wt = data.period_avg_wt / ranger.count;
 		data.wt_delta = readings[newest].weight - readings[oldest].weight;
 
 		ranger.data = data;

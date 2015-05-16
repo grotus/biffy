@@ -1,5 +1,14 @@
 @import "modules/mixins";
 .bio-view {
+	.period-data {
+		div	{
+			font-size: 12px;
+		}
+		hr {
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+	}
 	.input-panel {
 		position:fixed;
 		width: 100%;
