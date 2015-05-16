@@ -11,6 +11,20 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		$scope.date_changed();
 	});
 
+	$scope.range_select = {
+		index_a: null,
+		index_b: null,
+		next_select: 0,
+		is_selected: function (index) {
+			if (this.index_a === null && this.index_b === null) return false;
+			if (this.index_a === null) return index === this.index_b; 
+			if (this.index_b === null) return index === this.index_a;
+
+			return index >= Math.min(this.index_a, this.index_b)
+				 && index <= Math.max(this.index_a, this.index_b);
+		}
+	};
+
 	$scope.save = function () {
 		var save_data = {
 			weight: $scope.bio.weight,
@@ -48,6 +62,42 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		};
 	};
 
+	$scope.select_row = function (entry, index) {
+		$scope.edit_row(entry);
+		$scope.range_calculations(index);
+	};
+
+	$scope.range_calculations = function (index) {
+		var ranger = $scope.range_select;
+		if (ranger.next_select === 0) {
+			ranger.index_a = index;
+			if (ranger.index_b === null) ranger.index_b = index;
+		}
+		else ranger.index_b = index;
+		ranger.next_select = (ranger.next_select+1) % 2;
+
+		var newest = Math.min(ranger.index_a, ranger.index_b);
+		var oldest = Math.max(ranger.index_a, ranger.index_b);
+		var entryCount = oldest - newest + 1;
+
+		var data = {
+			period_avg_wt: null,
+			wt_delta: null,
+		};
+		var readings = $scope.readings;
+		for (var i = newest; i < oldest+1; i++) {
+			var reading = readings[i];
+			data.period_avg_wt += reading.weight;
+		};
+
+		data.period_avg_wt = data.period_avg_wt / entryCount;
+		data.wt_delta = readings[newest].weight - readings[oldest].weight;
+
+		ranger.data = data;
+		console.log(ranger);
+		console.log(ranger.data);
+	}
+
 	$scope.edit_row = function (entry) {
 		$scope.bio.entry_date = new Date(entry.entry_date); // makes assumptions about date formatting. Potential issue with future localization
 		$scope.bio.weight = entry.weight;
@@ -61,6 +111,6 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		Biometrics.delete_entry({id: row_date}, function () {
 			$scope.readings = Biometrics.get(function () {$scope.date_changed();});
 		});
-	}
+	};
 
 }]);

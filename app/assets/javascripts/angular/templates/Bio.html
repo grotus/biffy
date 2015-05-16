@@ -41,8 +41,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="edit_row(reading)">
-              <td>{{reading.entry_date}}</td>
+            <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="select_row(reading, $index)">
+              <td><span ng-if="range_select.is_selected($index)">*</span> {{reading.entry_date}}</td>
               <td>{{reading.weight | number: 2}}</td>
               <td>{{reading.percent*100 | number: 1}}</td>
               <td ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</td>
