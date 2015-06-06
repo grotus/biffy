@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606155548) do
+ActiveRecord::Schema.define(version: 20150606170053) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "exercises", force: true do |t|
+    t.integer  "user_id"
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "exercises", ["user_id"], name: "index_exercises_on_user_id", using: :btree
 
   create_table "fat_readings", force: true do |t|
     t.float    "percent"
@@ -83,5 +92,31 @@ ActiveRecord::Schema.define(version: 20150606155548) do
   end
 
   add_index "weight_readings", ["user_id"], name: "index_weight_readings_on_user_id", using: :btree
+
+  create_table "workout_sets", force: true do |t|
+    t.integer  "workout_id"
+    t.integer  "exercise_id"
+    t.float    "weight"
+    t.integer  "reps"
+    t.string   "entry_date"
+    t.boolean  "warmup"
+    t.integer  "order"
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "workout_sets", ["exercise_id"], name: "index_workout_sets_on_exercise_id", using: :btree
+  add_index "workout_sets", ["workout_id"], name: "index_workout_sets_on_workout_id", using: :btree
+
+  create_table "workouts", force: true do |t|
+    t.integer  "user_id"
+    t.string   "entry_date"
+    t.string   "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "workouts", ["user_id"], name: "index_workouts_on_user_id", using: :btree
 
 end

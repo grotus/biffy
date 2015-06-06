@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :workouts, dependent: :destroy
+  has_many :exercises, dependent: :destroy
   has_many :weight_readings, :dependent => :destroy do 
   	def by_date
   		select("id, weight, entry_date").order("entry_date DESC").map { |x| {entry_date: x.entry_date, bw_id: x.id, weight: x.weight} }
