@@ -30,6 +30,10 @@ angular.module('biffy', ['templates', 'ngRoute', 'biffyServices', 'authenticatio
 			controller: 'BfCalc',
 			templateUrl: 'BfCalc.html'
 		})
+		.when('/workout/quickinput', {
+			controller: 'WoQuickInput',
+			templateUrl: 'WoQuickInput.html'
+		})
 		.otherwise({
 			redirectTo: '/'
 		});

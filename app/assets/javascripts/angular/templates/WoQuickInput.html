@@ -1,0 +1,22 @@
+<div class="bfcalc-view">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <label>Skinfold readings (space-separated):</label>
+        <textarea class="form-control" rows="1" ng-model="readings.input" ng-change="input_changed()"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <h2 class="hidden">Raw: {{readings.input}}</h2>
+        <h2 class="hidden">Triplets: {{readings.list}}</h2>
+        <h2>BF%: {{readings.bf}}<span ng-if="readings.incomplete_input"> ...</span></h2>
+        <h2 ng-if="readings.bf > 0">Avg. series readings (mm): {{readings.series_averages}}</h2>
+        <h2 ng-if="readings.bf > 0">Measurement sum (mm): {{readings.measurement_sum}}</h2>
+      </div>
+    </div>
+  </div>
+</div>
+
