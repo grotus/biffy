@@ -2,19 +2,35 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <label>Skinfold readings (space-separated):</label>
-        <textarea class="form-control" rows="1" ng-model="readings.input" ng-change="input_changed()"></textarea>
+        <h2>Workout quick input</h2>
+        <textarea class="form-control" rows="5" ng-model="workout.input" ng-change="input_changed()"></textarea>
       </div>
     </div>
   </div>
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
-        <h2 class="hidden">Raw: {{readings.input}}</h2>
-        <h2 class="hidden">Triplets: {{readings.list}}</h2>
-        <h2>BF%: {{readings.bf}}<span ng-if="readings.incomplete_input"> ...</span></h2>
-        <h2 ng-if="readings.bf > 0">Avg. series readings (mm): {{readings.series_averages}}</h2>
-        <h2 ng-if="readings.bf > 0">Measurement sum (mm): {{readings.measurement_sum}}</h2>
+        <pre>{{workout.dataStringified}}</pre>
+        <pre># 2015-05-29
+DL (volume): (60x3x4, 80x3, 90x1) 105x5x3
+Push Press (intensity): (20x5x2, 30x3x3, 35x3, 40x1, 45,) 47.5, 50, 52,5 57x2,1
+
+# 2015-05-24
+Squat (volume): 20x5x2 60x5 80x3 92.5 102,5x5 100x5 100x5
+Push Press (extra volume): 20x5x2 30x3x2 40x3 47.5x3x5
+
+# 2015-05-10
+Squat (intensity): 20x5x2 60x5 80x3 100 110 117.5x3F,1 100x3
+Pause Squat: 80x3
+Bench (recovery): 20x5x2 40x5 45x5
+Press: 20x5x4
+Supinated Lat Pulldowns: 68x8,6,4
+
+
+
+3F
+Does this mean 3 reps and 1 fail, or 2 reps and 1 fail?
+115x1,F  == 115x1,1F</pre>
       </div>
     </div>
   </div>
