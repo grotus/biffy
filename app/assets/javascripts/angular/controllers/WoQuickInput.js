@@ -43,7 +43,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
             $scope.write_error('error bad date ' + dateRow);
             return false;
         }
-        var wo = {entry_date: entryDate, exercises: []};
+        var wo = {entry_date: entryDate, workout_exercises: []};
 
         // read exercise rows
         var dataRows = rows.slice(1, rows.length);
@@ -63,16 +63,16 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
 
     $scope.process_workout_row = function (workoutRow, workoutObject) {
         if (count_token(workoutRow, ':') !== 1) return false;
-        var exercise = { name: '', tags: '', sets: []};
+        var exercise = { exercise: '', tags: '', workout_sets: []};
         var workout_row_split = workoutRow.split(':');
         var name_and_tags = workout_row_split[0];
         var exercise_raw_data = workout_row_split[1];
 
-        exercise.name = name_and_tags.split('(')[0].trim();
+        exercise.exercise = {name: name_and_tags.split('(')[0].trim() };
         exercise.tags = $scope.get_tags(name_and_tags);
         var result = $scope.process_lifts(exercise, exercise_raw_data.trim());
         if (!result) return false;
-        workoutObject.exercises.push(exercise);
+        workoutObject.workout_exercises.push(exercise);
         return true;
     };
 
@@ -137,7 +137,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
         var weight = $scope.get_value(set_chunk);
         var isFail = set_chunk.indexOf('f') !== -1;
         var set = {weight: weight, reps: isFail ? 0 : 1, isWarmup: isWarmup, isFail: isFail};
-        exerciseObject.sets.push(set);
+        exerciseObject.workout_sets.push(set);
     };
 
     $scope.process_sets_variable = function (exerciseObject, set_chunk, isWarmup) {
@@ -189,7 +189,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
                      reps: reps_data.completed_reps,
                    isFail: reps_data.isFail,
                  isWarmup: isWarmup };
-        exerciseObject.sets.push(set);
+        exerciseObject.workout_sets.push(set);
     };
 
     $scope.get_reps_data = function (reps_string) {
