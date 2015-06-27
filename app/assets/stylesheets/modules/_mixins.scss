@@ -9,28 +9,21 @@
 }
 
 @mixin breakpoint($device-size, $device-only:false) {
-  @if $device-size == xs {    
+  @if $device-size == s {    
     @if($device-only) {
-      @media only screen and (max-width: $screen-xs-max) { @content; }
+      @media only screen and (max-width: $screen-s-max) { @content; }
     } @else {
       @content;
     }
   }
-  @else if $device-size == sm {
+  @else if $device-size == m {
     @if($device-only) {
-      @media only screen and (min-width: $screen-sm-min) and (max-width: $screen-sm-max) { @content; }
+      @media only screen and (min-width: $screen-m-min) and (max-width: $screen-m-max) { @content; }
     } @else {
-      @media only screen and (min-width: $screen-sm-min) { @content; }
+      @media only screen and (min-width: $screen-m-min) { @content; }
     }
   }
-  @else if $device-size == md {
-    @if($device-only) {
-      @media only screen and (min-width: $screen-md-min) and (max-width: $screen-md-max) { @content; }
-    } @else {
-      @media only screen and (min-width: $screen-md-min) { @content; }
-    }    
-  }
-  @else if $device-size == lg {
-    @media only screen and (min-width: $screen-lg-min) { @content; }
+  @else if $device-size == l {
+    @media only screen and (min-width: $screen-l-min) { @content; }
   }
 }
