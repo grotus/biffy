@@ -10,6 +10,13 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12">
+        <button ng-click="save()" ng-disabled="save_disabled()" class="btn btn-primary">Save</button>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12">
         <pre>{{workout.dataStringified}}</pre>
         <pre># 2015-05-29
 DL (volume): (60x3x4, 80x3, 90x1) 105x5x3

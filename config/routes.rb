@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end
     resources :biometrics, only: [:index, :create, :destroy] do
     end
+    resources :workout, only: [:index, :create, :destroy] do
+    end
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

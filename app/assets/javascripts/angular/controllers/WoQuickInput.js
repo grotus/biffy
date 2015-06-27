@@ -1,4 +1,4 @@
-angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
+angular.module('biffy').controller('WoQuickInput', ['$scope', 'Workout', function($scope, Workout) {
     window.DSCOPE = $scope;
     $scope.workout = {
         input: '',
@@ -6,6 +6,20 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
         data: [],
         dataStringified: '',
     };
+
+    $scope.save = function () {
+        Workout.save({workout: $scope.workout.data});
+    };
+
+    $scope.save_disabled = function () {
+        console.log('$scope.workout.data', $scope.workout.data);
+        if ($scope.workout.data.length === 0 
+            || $scope.workout.data === undefined
+            || $scope.workout.data.error !== undefined) {
+            return true;
+        }
+        return false;
+    }
 
     $scope.input_changed = function () {
         var input = $scope.workout.input;
@@ -43,7 +57,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
             $scope.write_error('error bad date ' + dateRow);
             return false;
         }
-        var wo = {entry_date: entryDate, workout_exercises: []};
+        var wo = {entry_date: entryDate, workout_exercises_attributes: []};
 
         // read exercise rows
         var dataRows = rows.slice(1, rows.length);
@@ -63,22 +77,22 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
 
     $scope.process_workout_row = function (workoutRow, workoutObject) {
         if (count_token(workoutRow, ':') !== 1) return false;
-        var exercise = { exercise: '', tags: '', workout_sets: []};
+        var exercise = { exercise_attributes: '', tag_list: [], workout_sets_attributes: []};
         var workout_row_split = workoutRow.split(':');
         var name_and_tags = workout_row_split[0];
         var exercise_raw_data = workout_row_split[1];
 
-        exercise.exercise = {name: name_and_tags.split('(')[0].trim() };
-        exercise.tags = $scope.get_tags(name_and_tags);
+        exercise.exercise_attributes = {name: name_and_tags.split('(')[0].trim() };
+        exercise.tag_list = $scope.get_tags(name_and_tags);
         var result = $scope.process_lifts(exercise, exercise_raw_data.trim());
         if (!result) return false;
-        workoutObject.workout_exercises.push(exercise);
+        workoutObject.workout_exercises_attributes.push(exercise);
         return true;
     };
 
     $scope.get_tags = function (name_and_tags) {
         var start = name_and_tags.indexOf('(');
-        if (start === -1) return false;
+        if (start === -1) return [];
         var end = name_and_tags.indexOf(')');
         if (end === -1) end = name_and_tags.length;
         var tags = name_and_tags.slice(start+1, end).split(' ');
@@ -137,7 +151,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
         var weight = $scope.get_value(set_chunk);
         var isFail = set_chunk.indexOf('f') !== -1;
         var set = {weight: weight, reps: isFail ? 0 : 1, isWarmup: isWarmup, isFail: isFail};
-        exerciseObject.workout_sets.push(set);
+        exerciseObject.workout_sets_attributes.push(set);
     };
 
     $scope.process_sets_variable = function (exerciseObject, set_chunk, isWarmup) {
@@ -189,7 +203,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
                      reps: reps_data.completed_reps,
                    isFail: reps_data.isFail,
                  isWarmup: isWarmup };
-        exerciseObject.workout_sets.push(set);
+        exerciseObject.workout_sets_attributes.push(set);
     };
 
     $scope.get_reps_data = function (reps_string) {
@@ -221,7 +235,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', function($scope) {
     };
 
     $scope.write_error = function (message) {
-        $scope.workout.data = {message: message}
+        $scope.workout.data = {error: true, message: message}
     };
 
 }]);
