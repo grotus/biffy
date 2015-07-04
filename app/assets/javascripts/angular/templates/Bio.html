@@ -36,11 +36,12 @@
   <div class="container table-data-container">
     <div class="row">
       <div class="col s12">
-        <table class="table card-panel striped hoverable">
+        <table class="table striped hoverable">
           <thead>
             <tr>
               <th>Date <span class="fa fa-sort-desc" /></th>
-              <th>Weight (kg)</th>
+              <th>Wt. (kg)</th>
+              <th>Est. (kg)</th>
               <th>Fat (%)</th>
               <th>LBM (kg)</th>
               <th>FBM (kg)</th>
@@ -52,6 +53,7 @@
             <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="select_row(reading, $index)">
               <td><span ng-if="range_select.count > 1 &&range_select.is_selected($index)">*</span> {{reading.entry_date}}</td>
               <td>{{reading.weight | number: 2}}</td>
+              <td>{{get_moving_avg($index) | number: 2}}</td>
               <td>{{reading.percent*100 | number: 1}}</td>
               <td ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</td>
               <td ng-if="reading.weight && reading.percent">{{reading.weight*reading.percent | number:2}}</td>

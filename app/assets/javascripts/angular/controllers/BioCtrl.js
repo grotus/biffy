@@ -32,6 +32,20 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		}
 	};
 
+	// Simple first version of a moving average
+	// Does not account for missing data points, so not truly a 7-day moving avg
+	$scope.get_moving_avg = function (index) {
+		var readings = $scope.readings;
+		var total_entries = readings.length;
+		var span = Math.min(total_entries - index, 7);
+		var final_index = index + span;
+		var moving_avg_weight = 0;
+		for (var i = final_index - 1; i >= index; i--) {
+			moving_avg_weight += readings[i].weight / span;
+		};
+		return moving_avg_weight;
+	};
+
 	$scope.save = function () {
 		var save_data = {
 			weight: $scope.bio.weight,
