@@ -50,8 +50,8 @@
             </tr>
           </thead>
           <tbody>
-            <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="select_row(reading, $index)">
-              <td><span ng-if="range_select.count > 1 &&range_select.is_selected($index)">*</span> {{reading.entry_date}}</td>
+            <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="select_row(reading, $index)" ng-class="{'selected-row': range_select.is_selected($index)}">
+              <td>{{reading.entry_date}}</td>
               <td>{{reading.weight | number: 2}}</td>
               <td>{{reading.moving_avg_weight | number: 2}}</td>
               <td>{{reading.percent*100 | number: 1}}</td>

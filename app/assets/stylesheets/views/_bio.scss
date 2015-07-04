@@ -29,6 +29,9 @@
 		}
 	}
 	.bio-table-row {
+		&.selected-row {
+			font-weight: bold;
+		}
 		.note {
 			max-width: 300px;
 			

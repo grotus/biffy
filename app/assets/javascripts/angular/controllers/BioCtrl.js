@@ -25,11 +25,12 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		count: 0, // redundant now?
 		is_selected: function (index) {
 			if (this.index_a === null && this.index_b === null) return false;
-			if (this.index_a === null) return index === this.index_b; 
-			if (this.index_b === null) return index === this.index_a;
+			return index === this.index_a || index === this.index_b;
+			// if (this.index_a === null) return index === this.index_b; 
+			// if (this.index_b === null) return index === this.index_a;
 
-			return index >= Math.min(this.index_a, this.index_b)
-				 && index <= Math.max(this.index_a, this.index_b);
+			// return index >= Math.min(this.index_a, this.index_b)
+			// 	 && index <= Math.max(this.index_a, this.index_b);
 		},
 		oldest_date: function () {
 			return $scope.readings[Math.max(this.index_a, this.index_b)].entry_date;
