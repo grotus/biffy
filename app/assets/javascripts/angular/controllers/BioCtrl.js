@@ -7,15 +7,22 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 	};
 	$scope.editabletest = 0;
 
-	$scope.readings = Biometrics.get(function () {
-		$scope.date_changed();
-	});
+	$scope.get_fresh_readings = function () {
+		$scope.readings = Biometrics.get(function () {
+			$scope.date_changed();
+
+			for (var i = $scope.readings.length - 1; i >= 0; i--) {
+				$scope.readings[i].moving_avg_weight = $scope.get_moving_avg(i);
+			};
+		});
+	};
+	$scope.get_fresh_readings();
 
 	$scope.range_select = {
 		index_a: null,
 		index_b: null,
 		next_select: 0,
-		count: 0,
+		count: 0, // redundant now?
 		is_selected: function (index) {
 			if (this.index_a === null && this.index_b === null) return false;
 			if (this.index_a === null) return index === this.index_b; 
@@ -60,7 +67,7 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		}
 
 		Biometrics.save(save_data, function () {
-			$scope.readings = Biometrics.get(function () {$scope.date_changed();});
+			$scope.get_fresh_readings();
 		});
 		// $scope.bio.weight = 0.0;
 		// $scope.bio.percent = 0.0;
@@ -99,24 +106,16 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 
 		var newest = Math.min(ranger.index_a, ranger.index_b);
 		var oldest = Math.max(ranger.index_a, ranger.index_b);
-		ranger.count = oldest - newest + 1;
+		ranger.count = oldest - newest + 1; // redundant now?
 
-		var data = {
-			period_avg_wt: null,
-			wt_delta: null,
-		};
 		var readings = $scope.readings;
-		for (var i = newest; i < oldest+1; i++) {
-			var reading = readings[i];
-			data.period_avg_wt += reading.weight;
+		var data = {
+			wt_old: readings[oldest].moving_avg_weight,
+			wt_new: readings[newest].moving_avg_weight,
+			wt_delta: readings[newest].moving_avg_weight - readings[oldest].moving_avg_weight,
 		};
-
-		data.period_avg_wt = data.period_avg_wt / ranger.count;
-		data.wt_delta = readings[newest].weight - readings[oldest].weight;
 
 		ranger.data = data;
-		console.log(ranger);
-		console.log(ranger.data);
 	}
 
 	$scope.edit_row = function (entry) {
@@ -130,7 +129,7 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		var confirmed = confirm("Delete data for " + row_date + "?");
 		if (confirmed === false) return;
 		Biometrics.delete_entry({id: row_date}, function () {
-			$scope.readings = Biometrics.get(function () {$scope.date_changed();});
+			$scope.get_fresh_readings();
 		});
 	};
 

@@ -3,8 +3,8 @@
     <div class="container">
       <div ng-if="range_select.count > 1" class="row period-data">
         <div class="col s12">
-          <div>Period: {{range_select.oldest_date()}} to {{range_select.newest_date()}}</div>
-          <div>Avg. weight: <b>{{range_select.data.period_avg_wt | number: 2}} kg</b>. Weight delta: <b>{{range_select.data.wt_delta | number: 2}} kg</b>.</div>
+          <div>From {{range_select.oldest_date()}} to {{range_select.newest_date()}}</div>
+          <div>Weight change from <b>{{range_select.data.wt_old | number: 2}}</b> to <b>{{range_select.data.wt_new | number: 2}}</b> kg. Weight delta: <b>{{range_select.data.wt_delta | number: 2}}</b> kg.</div>
           <hr>
         </div>
       </div>
@@ -53,7 +53,7 @@
             <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="select_row(reading, $index)">
               <td><span ng-if="range_select.count > 1 &&range_select.is_selected($index)">*</span> {{reading.entry_date}}</td>
               <td>{{reading.weight | number: 2}}</td>
-              <td>{{get_moving_avg($index) | number: 2}}</td>
+              <td>{{reading.moving_avg_weight | number: 2}}</td>
               <td>{{reading.percent*100 | number: 1}}</td>
               <td ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</td>
               <td ng-if="reading.weight && reading.percent">{{reading.weight*reading.percent | number:2}}</td>
