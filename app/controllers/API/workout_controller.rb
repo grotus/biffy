@@ -3,8 +3,19 @@ module Api
 		before_filter :authenticate_user!
 
 		def index
-			puts "workout index"
-			render json: {message: 'success'}
+			excepted = [:user_id, :created_at, :updated_at]
+			render json: current_user.workouts.as_json(
+				except: excepted, 
+				include: {
+					workout_exercises: {
+						except: excepted, 
+						include: {
+							exercise: {except: excepted},
+							workout_sets: {except: excepted},
+							tags: {}
+						}
+					}}
+				)
 		end
 
 		def create

@@ -4,7 +4,6 @@ module Api
 
 		def index
 			bio_data = current_user.collated_readings.try(:values).sort_by { |x| x[:entry_date] }.reverse!
-			puts "RETURNING DATA: #{bio_data.as_json}"
 			render json: bio_data.as_json
 		end
 

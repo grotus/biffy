@@ -8,11 +8,10 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', 'Workout', functio
     };
 
     $scope.save = function () {
-        Workout.save({workout: $scope.workout.data});
+        Workout.api.save({workout: $scope.workout.data});
     };
 
     $scope.save_disabled = function () {
-        console.log('$scope.workout.data', $scope.workout.data);
         if ($scope.workout.data.length === 0 
             || $scope.workout.data === undefined
             || $scope.workout.data.error !== undefined) {

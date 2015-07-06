@@ -11,7 +11,7 @@ Date.prototype.yyyymmdd = function() { // move to helpers.js or something
 
 angular.module('biffyServices', ['ngResource']);
 
-angular.module('biffy', ['templates', 'ngRoute', 'biffyServices', 'authentication_redirect', 'editableDirective'])
+angular.module('biffy', ['templates', 'ngRoute', 'biffyServices', 'authentication_redirect', 'editableDirective', 'tagListDirective'])
 .config(['$routeProvider', '$httpProvider', function($routeProvider, $httpProvider) {
 	$routeProvider
 		.when('/', {
@@ -29,6 +29,16 @@ angular.module('biffy', ['templates', 'ngRoute', 'biffyServices', 'authenticatio
 		.when('/bfcalc', {
 			controller: 'BfCalc',
 			templateUrl: 'BfCalc.html'
+		})
+		.when('/workout', {
+			resolve: {
+				workoutsData: ['Workout', function (Workout) {
+					return Workout.api.get();
+				}],
+			},
+			controller: 'Workout',
+			controllerAs: 'workouts',
+			templateUrl: 'Workout.html'
 		})
 		.when('/workout/quickinput', {
 			controller: 'WoQuickInput',

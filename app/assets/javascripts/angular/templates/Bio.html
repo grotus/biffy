@@ -55,8 +55,8 @@
               <td>{{reading.weight | number: 2}}</td>
               <td>{{reading.moving_avg_weight | number: 2}}</td>
               <td>{{reading.percent*100 | number: 1}}</td>
-              <td ng-if="reading.weight && reading.percent">{{reading.weight*(1-reading.percent) | number:2}}</td>
-              <td ng-if="reading.weight && reading.percent">{{reading.weight*reading.percent | number:2}}</td>
+              <td ng-if="reading.weight && reading.percent">{{reading.moving_avg_weight*(1-reading.percent) | number:2}}</td>
+              <td ng-if="reading.weight && reading.percent">{{reading.moving_avg_weight*reading.percent | number:2}}</td>
               <td ng-if="reading.weight===undefined || reading.percent===undefined"></td>
               <td ng-if="reading.weight===undefined || reading.percent===undefined"></th>
               <td class="note">

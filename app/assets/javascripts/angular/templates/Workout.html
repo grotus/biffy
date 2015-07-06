@@ -1,0 +1,15 @@
+<div class="workout-view container">
+		<div ng-repeat="workout in workouts.workouts" class="card-panel workout-card">
+			<div>{{workout.entry_date}}</div>
+			<div>{{workout.comment}}</div>
+			<hr>
+			<div ng-repeat="ex in workout.workout_exercises" class="workout-exercise">
+				<div>
+					<span>{{ex.exercise.name}}</span><tag-list tags="ex.tags" ng-if="ex.tags.length" ></tag-list>:
+				</div>
+				<div><span ng-repeat="set in ex.workout_sets" class="set-reps">
+					{{set.weight}}x{{set.reps}}
+				</span> </div>
+			</div>
+		</div>
+</div>

@@ -13,12 +13,3 @@ angular.module('biffyServices').factory('Biometrics', ['$resource',
       delete_entry: {url:'api/biometrics/:id', method:'DELETE'}
     });
 }]);
-
-angular.module('biffyServices').factory('Workout', ['$resource',
- function($resource){
-	return $resource('api/workout', {}, {
-      get: {method:'GET', isArray:true},
-      save: {method:'POST'},
-      delete_entry: {url:'api/workout/:id', method:'DELETE'}
-    });
-}]);

@@ -1,0 +1,11 @@
+.workout-view {
+	.workout-exercise {
+		margin-top: 0;
+	}
+	.workout-exercise ~ .workout-exercise {
+		margin-top: 10px;
+	}
+	.set-reps:not(:first-child) {
+		margin-left: 6px;
+	}
+}
