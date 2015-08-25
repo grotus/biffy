@@ -23,20 +23,20 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', 'Workout', functio
     $scope.input_changed = function () {
         var input = $scope.workout.input;
         $scope.workout.output = input.split("\n");
-        var output = $scope.workout.output;
+        var output_rows = $scope.workout.output;
         $scope.workout.data = [];
         var start = 0;
         var end = 0;
         var foundStart = false;
-        for (var i = 0; i < output.length; i++) {
-            var row = output[i];
+        for (var i = 0; i < output_rows.length; i++) {
+            var row = output_rows[i];
             if (row[0] === '#') {
                 start = i;
                 foundStart = true;
             }
-            if (foundStart && (row === '' || i === output.length-1))  {
+            if (foundStart && (row === '' || i === output_rows.length-1))  {
                 end = i;
-                var result = $scope.process_workout(output.slice(start, end+1));
+                var result = $scope.process_workout(output_rows.slice(start, end+1));
                 foundStart = false;
                 if (!result) break;
             }
@@ -46,6 +46,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', 'Workout', functio
     };
 
     $scope.process_workout = function (rows) {
+        reset_order_counters();
         if (rows.length < 1) return false;
 
         // Read date
@@ -85,6 +86,8 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', 'Workout', functio
         exercise.tag_list = $scope.get_tags(name_and_tags);
         var result = $scope.process_lifts(exercise, exercise_raw_data.trim());
         if (!result) return false;
+
+        exercise.order = get_exercise_order_num();
         workoutObject.workout_exercises_attributes.push(exercise);
         return true;
     };
@@ -150,6 +153,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', 'Workout', functio
         var weight = $scope.get_value(set_chunk);
         var isFail = set_chunk.indexOf('f') !== -1;
         var set = {weight: weight, reps: isFail ? 0 : 1, isWarmup: isWarmup, isFail: isFail};
+        set.order = get_set_order_num();
         exerciseObject.workout_sets_attributes.push(set);
     };
 
@@ -202,6 +206,7 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', 'Workout', functio
                      reps: reps_data.completed_reps,
                    isFail: reps_data.isFail,
                  isWarmup: isWarmup };
+        set.order = get_set_order_num();
         exerciseObject.workout_sets_attributes.push(set);
     };
 
@@ -242,4 +247,25 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', 'Workout', functio
 function count_token (str, token) {
     var tokenRegex = new RegExp(token, 'g');
     return (str.match(tokenRegex)||[]).length;
+}
+
+
+var exercise_order_counter = 0;
+var set_order_counter = 0;
+
+function get_set_order_num () {
+    var issue_number = set_order_counter;
+    set_order_counter++;
+    return issue_number;
+}
+
+function get_exercise_order_num () {
+    var issue_number = exercise_order_counter;
+    exercise_order_counter++;
+    return issue_number;
+}
+
+function reset_order_counters () {
+    exercise_order_counter = 0;
+    set_order_counter = 0;
 }
