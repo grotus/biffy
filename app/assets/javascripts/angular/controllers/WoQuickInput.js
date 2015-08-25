@@ -8,7 +8,14 @@ angular.module('biffy').controller('WoQuickInput', ['$scope', 'Workout', functio
     };
 
     $scope.save = function () {
-        Workout.api.save({workout: $scope.workout.data});
+        Workout.api.save({workout: $scope.workout.data},
+            function (success) {
+                Materialize.toast('Saved data', 4000);
+            },
+            function (error) {
+                Materialize.toast('Something went wrong', 4000);
+            });
+        
     };
 
     $scope.save_disabled = function () {
