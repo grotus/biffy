@@ -63,7 +63,7 @@ module Api
 
 		def build_workout_exercise(data, workout)
 			exercise = get_exercise_object(data[:exercise_attributes][:name])
-			wo_exercise = WorkoutExercise.new(exercise: exercise, tag_list: data[:tag_list], workout: workout)
+			wo_exercise = WorkoutExercise.new(exercise: exercise, tag_list: data[:tag_list], order: data[:order], workout: workout)
 			for wo_set in data[:workout_sets_attributes]
 				wo_exercise.workout_sets.push build_workout_set(wo_set, wo_exercise)
 			end
@@ -80,7 +80,7 @@ module Api
 		end
 
 		def build_workout_set(data, wo_exercise)
-			WorkoutSet.new(weight: data[:weight], reps: data[:reps], warmup: data[:isWarmup], workout_exercise: wo_exercise)
+			WorkoutSet.new(weight: data[:weight], reps: data[:reps], warmup: data[:isWarmup], order: data[:order], workout_exercise: wo_exercise)
 		end
 
 		def workout_params(data)
