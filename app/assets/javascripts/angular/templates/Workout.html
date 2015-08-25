@@ -1,15 +1,19 @@
 <div class="workout-view container">
-		<div ng-repeat="workout in workouts.workouts" class="card-panel workout-card">
-			<div>{{workout.entry_date}}</div>
-			<div>{{workout.comment}}</div>
-			<hr>
-			<div ng-repeat="ex in workout.workout_exercises" class="workout-exercise">
-				<div>
-					<span>{{ex.exercise.name}}</span><tag-list tags="ex.tags" ng-if="ex.tags.length" ></tag-list>:
-				</div>
-				<div><span ng-repeat="set in ex.workout_sets" class="set-reps">
-					{{set.weight}}x{{set.reps}}
-				</span> </div>
+	<div class="settings card-panel">
+		<input type="checkbox" id="show-warmups" ng-model="workouts.settings.showWarmups" />
+     <label for="show-warmups">Show warmups</label>
+	</div>
+	<div ng-repeat="workout in workouts.workouts" class="card-panel workout-card">
+		<div>{{workout.entry_date}}</div>
+		<div>{{workout.comment}}</div>
+		<hr>
+		<div ng-repeat="ex in workout.workout_exercises" class="workout-exercise">
+			<div>
+				<span>{{ex.exercise.name}}</span><tag-list tags="ex.tags" ng-if="ex.tags.length" ></tag-list>:
 			</div>
+			<div><span ng-repeat="set in ex.workout_sets" class="set-reps">
+				<span ng-if="workouts.include_set(set)">{{set.weight}}x{{set.reps}} <span ng-if="set.warmup">WU</span></span>
+			</span></div>
 		</div>
+	</div>
 </div>

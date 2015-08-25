@@ -80,7 +80,7 @@ module Api
 		end
 
 		def build_workout_set(data, wo_exercise)
-			WorkoutSet.new(weight: data[:weight], reps: data[:reps], workout_exercise: wo_exercise)
+			WorkoutSet.new(weight: data[:weight], reps: data[:reps], warmup: data[:isWarmup], workout_exercise: wo_exercise)
 		end
 
 		def workout_params(data)

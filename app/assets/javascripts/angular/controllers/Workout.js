@@ -4,7 +4,13 @@ angular.module('biffy').controller('Workout',
     window.DSCOPE = $scope;
     this.helper = Workout;
     this.workouts = workoutsData;
+    this.settings = {
+      showWarmups: false
+    };
 
-    console.log('workouts is', this.workouts);
+    this.include_set = function (set) {
+      if (this.settings.showWarmups) return true;
+      return set.warmup !== true;
+    };
   }]
 );
