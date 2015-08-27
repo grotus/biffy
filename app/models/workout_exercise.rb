@@ -1,5 +1,5 @@
 class WorkoutExercise < ActiveRecord::Base
-	default_scope  { order(:created_at => :asc) }
+	default_scope  { order(:order => :asc) }
 	acts_as_taggable
 	validates :workout, :exercise, presence: true
   belongs_to :workout

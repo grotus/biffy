@@ -11,9 +11,14 @@
 			<div>
 				<span>{{ex.exercise.name}}</span><tag-list tags="ex.tags" ng-if="ex.tags.length" ></tag-list>:
 			</div>
-			<div><span ng-repeat="set in ex.workout_sets" class="set-reps">
-				<span ng-if="workouts.include_set(set)">{{set.weight}}x{{set.reps}} <span ng-if="set.warmup">WU</span></span>
-			</span></div>
+			<div>
+				<span ng-if="workouts.settings.showWarmups" ng-repeat="set in ex.workout_sets" class="set-reps">
+					<span>{{set.weight}}x{{set.reps}}</span>
+				</span>
+				<span ng-if="!workouts.settings.showWarmups" ng-repeat="set in ex.workout_sets | filter:workouts.include_set" class="set-reps">
+					<span>{{set.weight}}x{{set.reps}}</span>
+				</span>
+			</div>
 		</div>
 	</div>
 </div>

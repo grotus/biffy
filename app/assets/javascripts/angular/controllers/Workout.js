@@ -9,8 +9,7 @@ angular.module('biffy').controller('Workout',
     };
 
     this.include_set = function (set) {
-      if (this.settings.showWarmups) return true;
-      return set.warmup !== true;
+      return !set.warmup;
     };
   }]
 );
