@@ -60,7 +60,7 @@
               <td ng-if="reading.weight===undefined || reading.percent===undefined"></td>
               <td ng-if="reading.weight===undefined || reading.percent===undefined"></th>
               <td class="note">
-                <div class="body truncate" ng-if="reading.note">{{reading.note}}</div>
+                <div class="body" ng-class="{'truncate': !range_select.is_selected($index)}" ng-if="reading.note">{{reading.note}}</div>
               </td>
               <td><span ng-click="delete_row(reading.entry_date)" class="fa fa-close delete-entry-row" /></td>
             </tr>
