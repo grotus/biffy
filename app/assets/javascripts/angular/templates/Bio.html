@@ -34,13 +34,17 @@
   </div>
 
   <div class="container table-data-container">
+    <div class="settings card-panel">
+      <input type="checkbox" id="show-raw-data" ng-model="settings.show_raw_data" />
+       <label for="show-raw-data">Show raw data</label>
+    </div>
     <div class="row">
       <div class="col s12">
         <table class="table striped hoverable card-panel">
           <thead>
             <tr>
               <th>Date <span class="fa fa-sort-desc" /></th>
-              <th>Wt. (kg)</th>
+              <th ng-if="settings.show_raw_data">Wt. (kg)</th>
               <th>Avg. (kg)</th>
               <th>Fat (%)</th>
               <th>LBM (kg)</th>
@@ -52,7 +56,7 @@
           <tbody>
             <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="select_row(reading, $index)" ng-class="{'selected-row': range_select.is_selected($index)}">
               <td>{{reading.entry_date}}</td>
-              <td>{{reading.weight | number: 2}}</td>
+              <td ng-if="settings.show_raw_data">{{reading.weight | number: 2}}</td>
               <td>{{reading.moving_avg_weight | number: 2}}</td>
               <td>{{reading.percent*100 | number: 1}}</td>
               <td ng-if="reading.weight && reading.percent">{{reading.moving_avg_weight*(1-reading.percent) | number:2}}</td>

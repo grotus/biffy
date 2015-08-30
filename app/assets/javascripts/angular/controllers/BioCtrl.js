@@ -5,7 +5,10 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 		note: "",
 		entry_date: new Date()
 	};
-	$scope.editabletest = 0;
+	$scope.editabletest = 0; // IS THIS EVEN USED?
+	$scope.settings = {
+      show_raw_data: false
+    };
 
 	$scope.get_fresh_readings = function () {
 		$scope.readings = Biometrics.get(function () {
