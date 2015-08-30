@@ -20,5 +20,12 @@
 				</span>
 			</div>
 		</div>
+		<hr>
+		<div class="volume">
+			<div>Volume</div>
+			<div ng-repeat="ex in workout.workout_exercises">
+				<span class="exercise-volume-name">{{ex.exercise.name}}:</span> <span class="exercise-volume">{{workouts.get_volume(ex)}}</span>
+			</div>
+		</div>
 	</div>
 </div>
