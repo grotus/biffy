@@ -1,5 +1,10 @@
 @import "modules/mixins";
 .bio-view {
+	.settings {
+		.column-selection {
+			margin-right: 25px;
+		}
+	}
 	.period-data {
 		div	{
 			font-size: 12px;

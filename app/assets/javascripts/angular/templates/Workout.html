@@ -2,18 +2,24 @@
 	<div class="settings card-panel">
 		<input type="checkbox" id="show-warmups" ng-model="workouts.settings.showWarmups" />
      <label for="show-warmups">Show warmups</label>
+     <i class="material-icons blue-grey-text text-lighten-3 right">playlist_add</i>
 	</div>
 	<div ng-repeat="workout in workouts.workouts" class="card-panel workout-card">
-		<div>{{workout.entry_date}}</div>
+		<div><span class="workout-date">{{workout.entry_date}}</span>
+			<span class="workout-buttons">
+				<i class="material-icons blue-grey-text text-lighten-3 right">playlist_add</i>
+				<i class="material-icons blue-grey-text text-lighten-3 right">delete</i>
+			</span>
+		</div>
 		<div>{{workout.comment}}</div>
 		<hr>
 		<div ng-repeat="ex in workout.workout_exercises" class="workout-exercise">
-			<div>
-				<span>{{ex.exercise.name}}</span><tag-list tags="ex.tags" ng-if="ex.tags.length" ></tag-list>:
+			<div class="bold">
+				<span>{{ex.exercise.name}}</span><tag-list tags="ex.tags" ng-if="ex.tags.length"></tag-list>
 			</div>
 			<div>
 				<span ng-if="workouts.settings.showWarmups" ng-repeat="set in ex.workout_sets" class="set-reps">
-					<span>{{set.weight}}x{{set.reps}}</span>
+					<span ng-class="{'italize grey-text': set.warmup}">{{set.weight}}x{{set.reps}}</span>
 				</span>
 				<span ng-if="!workouts.settings.showWarmups" ng-repeat="set in ex.workout_sets | filter:workouts.include_set" class="set-reps">
 					<span>{{set.weight}}x{{set.reps}}</span>
@@ -22,9 +28,9 @@
 		</div>
 		<hr>
 		<div class="volume">
-			<div>Volume</div>
+			<div>Set Volume</div>
 			<div ng-repeat="ex in workout.workout_exercises">
-				<span class="exercise-volume-name">{{ex.exercise.name}}:</span> <span class="exercise-volume">{{workouts.get_volume(ex)}}</span>
+				<span class="exercise-volume-name bold">{{ex.exercise.name}}:</span> <span class="exercise-volume">{{workouts.get_volume(ex)}}</span>
 			</div>
 		</div>
 	</div>

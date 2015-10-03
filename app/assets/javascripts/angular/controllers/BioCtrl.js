@@ -7,7 +7,14 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 	};
 	$scope.editabletest = 0; // IS THIS EVEN USED?
 	$scope.settings = {
-      show_raw_data: false
+		show: {
+			date: true,
+			raw_wt: false,
+			avg_wt: true,
+			composition: false,
+			tags: false,
+			note: true
+		}
     };
 
 	$scope.get_fresh_readings = function () {
