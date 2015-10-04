@@ -1,5 +1,5 @@
 <div class="bio-view">
-<div class="input-panel">
+  <div class="input-panel">
     <div class="container">
       <div ng-if="range_select.count > 1" class="row period-data">
         <div class="col s12">
@@ -35,27 +35,33 @@
 
   <div class="container table-data-container">
     <div class="settings card-panel">
-      <div>Columns:</div>
-      <span class="column-selection">
-        <input type="checkbox" id="show-date" ng-model="settings.show.date" />
-        <label for="show-date">Date</label>
-      </span>
-      <span class="column-selection">
-        <input type="checkbox" id="show-raw-wt" ng-model="settings.show.raw_wt" />
-        <label for="show-raw-wt">Raw wt</label>
-      </span>
-      <span class="column-selection">
-        <input type="checkbox" id="show-avg-wt" ng-model="settings.show.avg_wt" />
-        <label for="show-avg-wt">Avg wt</label>
-      </span>
-      <span class="column-selection">
-        <input type="checkbox" id="show-composition" ng-model="settings.show.composition" />
-        <label for="show-composition">Composition</label>
-      </span>
-      <span class="column-selection">
-        <input type="checkbox" id="show-note" ng-model="settings.show.note" />
-        <label for="show-note">Note</label>
-      </span>
+      <div>
+        <div>Columns</div>
+        <span class="column-selection">
+          <input type="checkbox" id="show-date" ng-model="settings.show.date" />
+          <label for="show-date">Date</label>
+        </span>
+        <span class="column-selection">
+          <input type="checkbox" id="show-raw-wt" ng-model="settings.show.raw_wt" />
+          <label for="show-raw-wt">Raw wt</label>
+        </span>
+        <span class="column-selection">
+          <input type="checkbox" id="show-avg-wt" ng-model="settings.show.avg_wt" />
+          <label for="show-avg-wt">Avg wt</label>
+        </span>
+        <span class="column-selection">
+          <input type="checkbox" id="show-composition" ng-model="settings.show.composition" />
+          <label for="show-composition">Composition</label>
+        </span>
+        <span class="column-selection">
+          <input type="checkbox" id="show-note" ng-model="settings.show.note" />
+          <label for="show-note">Note</label>
+        </span>
+      </div>
+      <div>
+        <span>Decimals: </span>
+        <input style="width:30px" type="number" ng-model="settings.precision" placeholder="1" step="1">
+      </div>
     </div>
     <div class="row">
       <div class="col s12">
@@ -75,11 +81,11 @@
           <tbody>
             <tr ng-repeat="reading in readings" class="bio-table-row" ng-click="select_row(reading, $index)" ng-class="{'selected-row': range_select.is_selected($index)}">
               <td ng-if="settings.show.date">{{reading.entry_date}}</td>
-              <td ng-if="settings.show.raw_wt">{{reading.weight | number: 2}}</td>
-              <td ng-if="settings.show.avg_wt">{{reading.moving_avg_weight | number: 2}}</td>
+              <td ng-if="settings.show.raw_wt">{{reading.weight | number: settings.precision}}</td>
+              <td ng-if="settings.show.avg_wt">{{reading.moving_avg_weight | number: settings.precision}}</td>
               <td ng-if="settings.show.composition">{{reading.percent*100 | number: 1}}</td>
-              <td ng-if="settings.show.composition && reading.weight && reading.percent">{{reading.moving_avg_weight*(1-reading.percent) | number:2}}</td>
-              <td ng-if="settings.show.composition && reading.weight && reading.percent">{{reading.moving_avg_weight*reading.percent | number:2}}</td>
+              <td ng-if="settings.show.composition && reading.weight && reading.percent">{{reading.moving_avg_weight*(1-reading.percent) | number:settings.precision}}</td>
+              <td ng-if="settings.show.composition && reading.weight && reading.percent">{{reading.moving_avg_weight*reading.percent | number:settings.precision}}</td>
               <td ng-if="settings.show.composition && (reading.weight===undefined || reading.percent===undefined)"></td>
               <td ng-if="settings.show.composition && (reading.weight===undefined || reading.percent===undefined)"></th>
               <td ng-if="settings.show.note" class="note">

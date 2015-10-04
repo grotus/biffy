@@ -14,7 +14,8 @@ angular.module('biffy').controller('BioCtrl', ['$scope', '$filter', 'Biometrics'
 			composition: false,
 			tags: false,
 			note: true
-		}
+		},
+		precision: 1,
     };
 
 	$scope.get_fresh_readings = function () {
