@@ -41,6 +41,10 @@
 			max-width: 300px;
 			
 			.body {
+				white-space: pre-line;
+				&.truncate {
+					white-space: nowrap;
+				}
 			}
 		}
 
